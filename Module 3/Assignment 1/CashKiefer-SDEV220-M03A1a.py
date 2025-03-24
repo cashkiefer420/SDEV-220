@@ -16,3 +16,10 @@ things[0] = things[0].upper()
 
 # Printing the list to check if it changed
 print(things)
+
+
+# Removing the disease element
+things.remove("salmonella")
+
+# Printing the updated list
+print(things)
