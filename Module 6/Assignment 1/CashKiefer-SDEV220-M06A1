@@ -1,0 +1,16 @@
+from datetime import date  # Import the date class from the datetime module
+
+today = date.today()  # Get the current date
+date_string = today.isoformat()  # Convert the date to a string in ISO format (YYYY-MM-DD)
+
+with open("today.txt", "w") as file:  # Open a file named today.txt in write mode
+    file.write(date_string)  # Write the date string to the file
+
+with open("today.txt", "r") as file:  # Open the file today.txt in read mode
+    today_string = file.read()  # Read the entire contents of the file into a string
+print (today_string)
+
+from datetime import datetime  # Import datetime class for parsing
+
+# Parse the string using the same format it was written in (ISO format: YYYY-MM-DD)
+parsed_date = datetime.strptime(today_string, "%Y-%m-%d").date()  # Convert string to date object
