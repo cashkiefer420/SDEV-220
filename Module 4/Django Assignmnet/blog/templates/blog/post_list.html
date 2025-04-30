@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Cash's Blog</title>
-    </head>
-    <body>
-        <header>
-            <h1><a href="/">Cash's Blog</a></h1>
-        </header>
-    {% for post in posts %}
-        <article>
-            <time>published: {{ post.published_date }}</time>
-            <h2><a href="">{{ post.title }}</a></h2>
-            <p>{{ post.text|linebreaksbr }}</p>
-        </article>
-    {% endfor %}
-    </body>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cash's Blog</title>
+    <div class="page-header">
+        {% if user.is_authenticated %}
+            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+        {% else %}
+            <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
+        {% endif %}
+    </div>
+</head>
+<body>
+    <header>
+        <h1><a href="/">Cash's Blog</a></h1>
+    </header>
+
+    {% if posts %}
+        {% for post in posts %}
+            <article>
+                <time datetime="{{ post.published_date }}">{{ post.published_date }}</time>
+                <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                <p>{{ post.text|linebreaksbr }}</p>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>No posts available.</p>
+    {% endif %}
+</body>
 </html>
